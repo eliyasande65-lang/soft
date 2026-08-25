@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Services — Soft Innovations</title>
+    <meta name="description" content="Explore our web development services, process, and tech stacks." />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        /* Standalone & Header Styling Fixes */
+        .page-header {
+            padding: 60px 0 40px;
+            background: var(--bg-tint, #F3F7FC);
+            border-bottom: 1px solid var(--border-color, #E2E8F0);
+            text-align: left;
+        }
+
+            .page-header h1 {
+                font-size: clamp(2.2rem, 5vw, 3.4rem);
+                font-weight: 800;
+                line-height: 1.15;
+                letter-spacing: -0.02em;
+                color: var(--navy-dark, #0B1F33);
+                margin-top: 8px;
+            }
+
+            .page-header p {
+                color: var(--slate-soft, #5A6E85);
+                max-width: 600px;
+                margin-top: 12px;
+                font-size: 1.1rem;
+            }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--blue-primary, #0A84FF);
+            margin-bottom: 4px;
+        }
+
+        .services-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .service-block {
+            background: var(--surface, #FFFFFF);
+            border: 1px solid var(--border-color, #E2E8F0);
+            border-radius: var(--radius-lg, 20px);
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: center;
+            box-shadow: var(--shadow-sm, 0 2px 8px rgba(11, 31, 51, 0.04));
+            transition: all 0.3s ease;
+        }
+
+            .service-block h3 {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--navy-dark, #0B1F33);
+            }
+
+            .service-block:nth-child(even) {
+                direction: rtl;
+            }
+
+                .service-block:nth-child(even) .service-content {
+                    direction: ltr;
+                }
+
+        .service-features {
+            list-style: none;
+            margin-top: 16px;
+        }
+
+            .service-features li {
+                position: relative;
+                padding-left: 24px;
+                margin-bottom: 8px;
+                color: var(--slate-soft, #5A6E85);
+            }
+
+                .service-features li::before {
+                    content: "✓";
+                    position: absolute;
+                    left: 0;
+                    color: var(--blue-primary, #0A84FF);
+                    font-weight: bold;
+                }
+
+        .tech-pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .pill {
+            background: var(--bg-tint, #F3F7FC);
+            padding: 6px 14px;
+            border-radius: var(--radius-full, 9999px);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--navy-mid, #1E3A57);
+            border: 1px solid var(--border-color, #E2E8F0);
+        }
+
+        @media (max-width: 768px) {
+            .service-block {
+                grid-template-columns: 1fr;
+            }
+
+                .service-block:nth-child(even) {
+                    direction: ltr;
+                }
+        }
+    </style>
+</head>
+<body data-page="services">
+
+    <header class="site-header">
+        <div class="nav-wrap">
+            <a href="index.html" class="brand">
+                <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="16" fill="#0A84FF" /><circle cx="10.5" cy="12" r="3.1" fill="#fff" /><circle cx="24" cy="11" r="2.3" fill="#fff" opacity="0.85" /><circle cx="23" cy="23.5" r="3.6" fill="#fff" /><path d="M10.5 12 L23 23.5 M10.5 12 L24 11" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity="0.9" /></svg>
+                Soft<span class="dot">Innovations</span>
+            </a>
+            <nav class="main-nav" aria-label="Primary">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html" data-active="true">Services</a></li>
+                    <li><a href="track.html">Track work</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn btn-ghost btn-sm" data-modal-target="modal-login">Log in</button>
+                <button class="btn btn-primary btn-sm" data-modal-target="modal-order">Request order</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <span class="eyebrow">Services</span>
+            <h1>Engineering tools tailored for scale.</h1>
+            <p>We build reliable digital infrastructure designed around specific business workflows.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="services-detail-grid">
+
+                <div class="service-block">
+                    <div class="service-content">
+                        <h3>Custom Web Platforms</h3>
+                        <p style="color:var(--slate-soft, #5A6E85); margin-top:10px;">End-to-end multi-user web applications built for reliability, accessibility, and high performance.</p>
+                        <ul class="service-features">
+                            <li>Marketplaces & booking engines</li>
+                            <li>Real-time data synchronization</li>
+                            <li>Role-based authorization systems</li>
+                        </ul>
+                        <div class="tech-pills">
+                            <span class="pill">Node.js</span>
+                            <span class="pill">MySQL</span>
+                            <span class="pill">REST APIs</span>
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 300 200" style="width:100%; height:auto; background:var(--bg-tint, #F3F7FC); border-radius:12px; padding:20px;">
+                            <rect x="20" y="20" width="260" height="160" rx="8" fill="#fff" stroke="var(--border-color, #E2E8F0)" stroke-width="2" />
+                            <path d="M20 45 h260" stroke="var(--border-color, #E2E8F0)" stroke-width="2" />
+                            <circle cx="35" cy="32" r="4" fill="#ff5f56" />
+                            <circle cx="47" cy="32" r="4" fill="#ffbd2e" />
+                            <circle cx="59" cy="32" r="4" fill="#27c93f" />
+                            <rect x="40" y="65" width="100" height="15" rx="4" fill="var(--blue-light, rgba(10, 132, 255, 0.08))" />
+                            <rect x="40" y="90" width="220" height="10" rx="2" fill="#E2E8F0" />
+                            <rect x="40" y="110" width="180" height="10" rx="2" fill="#E2E8F0" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="service-block">
+                    <div class="service-content">
+                        <h3>Dashboards & Internal Tools</h3>
+                        <p style="color:var(--slate-soft, #5A6E85); margin-top:10px;">Replace fragmented spreadsheet systems with unified internal operational platforms.</p>
+                        <ul class="service-features">
+                            <li>Inventory and order tracking</li>
+                            <li>Custom operational analytics</li>
+                            <li>Automated report exports</li>
+                        </ul>
+                        <div class="tech-pills">
+                            <span class="pill">Express</span>
+                            <span class="pill">SQL Database</span>
+                            <span class="pill">Data Visualization</span>
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 300 200" style="width:100%; height:auto; background:var(--bg-tint, #F3F7FC); border-radius:12px; padding:20px;">
+                            <rect x="20" y="20" width="260" height="160" rx="8" fill="#fff" stroke="var(--border-color, #E2E8F0)" stroke-width="2" />
+                            <rect x="40" y="110" width="30" height="50" fill="var(--blue-primary, #0A84FF)" />
+                            <rect x="85" y="80" width="30" height="80" fill="var(--navy-mid, #1E3A57)" />
+                            <rect x="130" y="50" width="30" height="110" fill="var(--amber-primary, #F2A93B)" />
+                            <rect x="175" y="95" width="30" height="65" fill="var(--blue-light, rgba(10, 132, 255, 0.08))" />
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer style="margin-top: 60px;">
+        <div class="container text-center">
+            <p style="color:var(--slate-light, #8E9EAF); font-size:0.85rem;">&copy; 2026 Soft Innovations. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.service-block');
+        cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+        card.style.borderColor = 'var(--blue-primary, #0A84FF)';
+        });
+        card.addEventListener('mouseleave', () => {
+        card.style.borderColor = 'var(--border-color, #E2E8F0)';
+        });
+        });
+        });
+    </script>
+</body>
+</html>

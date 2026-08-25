@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact — Soft Innovations</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        /* Header Banner Styling Fixes */
+        .section-tint {
+            background-color: var(--bg-tint, #F3F7FC);
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border-color, #E2E8F0);
+        }
+
+            .section-tint h1 {
+                font-size: clamp(2.2rem, 5vw, 3.4rem);
+                font-weight: 800;
+                line-height: 1.15;
+                letter-spacing: -0.02em;
+                color: var(--navy-dark, #0B1F33);
+                margin-top: 8px;
+            }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--blue-primary, #0A84FF);
+        }
+
+        /* Contact Grid & Form Input Styles */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0 80px;
+        }
+
+            .contact-grid h3 {
+                font-size: 1.35rem;
+                font-weight: 700;
+                color: var(--navy-dark, #0B1F33);
+                margin-bottom: 8px;
+            }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+            .field label {
+                display: block;
+                font-size: 0.85rem;
+                font-weight: 600;
+                margin-bottom: 6px;
+                color: var(--navy-dark, #0B1F33);
+            }
+
+            .field input,
+            .field select,
+            .field textarea {
+                width: 100%;
+                padding: 12px 16px;
+                font-family: inherit;
+                font-size: 0.95rem;
+                border: 1px solid var(--border-color, #E2E8F0);
+                border-radius: var(--radius-sm, 8px);
+                background: var(--bg-main, #FAFCFF);
+                color: var(--navy-dark, #0B1F33);
+                outline: none;
+                transition: all 0.3s ease;
+                box-sizing: border-box;
+            }
+
+                .field input:focus,
+                .field select:focus,
+                .field textarea:focus {
+                    border-color: var(--blue-primary, #0A84FF);
+                    background: #FFFFFF;
+                    box-shadow: 0 0 0 3px var(--blue-light, rgba(10, 132, 255, 0.08));
+                }
+
+            .field textarea {
+                resize: vertical;
+                min-height: 110px;
+            }
+
+        /* Buttons & Accordion */
+        .btn-block {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--blue-primary, #0A84FF);
+            color: #FFFFFF;
+            padding: 14px 28px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: var(--radius-full, 9999px);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: var(--blue-hover, #0066CC);
+                transform: translateY(-2px);
+            }
+
+        .accordion-item {
+            background: var(--surface, #FFFFFF);
+            border: 1px solid var(--border-color, #E2E8F0);
+            border-radius: var(--radius-sm, 8px);
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 16px 20px;
+            text-align: left;
+            background: none;
+            border: none;
+            font-weight: 600;
+            color: var(--navy-dark, #0B1F33);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 20px;
+            color: var(--slate-soft, #5A6E85);
+            font-size: 0.95rem;
+        }
+
+        .accordion-item[data-active="true"] .accordion-body {
+            padding: 0 20px 16px 20px;
+            max-height: 200px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body data-page="contact">
+
+    <header class="site-header">
+        <div class="nav-wrap">
+            <a href="index.html" class="brand">
+                <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="16" fill="#0A84FF" /><circle cx="10.5" cy="12" r="3.1" fill="#fff" /><circle cx="24" cy="11" r="2.3" fill="#fff" opacity="0.85" /><circle cx="23" cy="23.5" r="3.6" fill="#fff" /><path d="M10.5 12 L23 23.5 M10.5 12 L24 11" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity="0.9" /></svg>
+                Soft<span class="dot">Innovations</span>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="track.html">Track work</a></li>
+                    <li><a href="contact.html" data-active="true">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="section-tint">
+        <div class="container">
+            <span class="eyebrow">Contact Us</span>
+            <h1>Let's Start a Conversation</h1>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="contact-grid">
+            <div>
+                <h3>Direct Message</h3>
+                <p style="color:var(--slate-soft, #5A6E85); margin-bottom:20px;">Fill out the form and our studio team will respond within 24 business hours.</p>
+                <form id="contact-form">
+                    <div class="field">
+                        <label for="c-name">Name</label>
+                        <input type="text" id="c-name" required placeholder="Your full name" />
+                    </div>
+                    <div class="field">
+                        <label for="c-email">Email</label>
+                        <input type="email" id="c-email" required placeholder="name@domain.com" />
+                    </div>
+                    <div class="field">
+                        <label for="c-message">Message</label>
+                        <textarea id="c-message" required placeholder="How can we help?"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                </form>
+            </div>
+
+            <div>
+                <h3 id="help">Frequently Asked Questions</h3>
+                <p style="color:var(--slate-soft, #5A6E85); margin-bottom:20px;">Quick responses to typical process inquiries.</p>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        What is your typical project timeline?
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-body">
+                        Most custom platforms take between 4 to 8 weeks, depending on system complexity and third-party API integrations.
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Do you provide post-launch maintenance?
+                        <span>+</span>
+                    </button>
+                    <div class="accordion-body">
+                        Yes. We offer ongoing support retainers for hosting maintenance, security updates, and functional additions.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const accordions = document.querySelectorAll('.accordion-item');
+
+        accordions.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        header.addEventListener('click', () => {
+        const isOpen = item.getAttribute('data-active') === 'true';
+        accordions.forEach(i => i.setAttribute('data-active', 'false'));
+        if (!isOpen) item.setAttribute('data-active', 'true');
+        });
+        });
+
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you for reaching out! We will reply within 24 hours.');
+        e.target.reset();
+        });
+        });
+    </script>
+</body>
+</html>

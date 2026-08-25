@@ -1,0 +1,281 @@
+﻿/* ==========================================================================
+   1. VARIABLES & SYSTEM SETUP
+   ========================================================================== */
+:root {
+    /* Color Palette */
+    --bg-main: #FAFCFF;
+    --bg-tint: #F3F7FC;
+    --surface: #FFFFFF;
+    --navy-dark: #0B1F33;
+    --navy-mid: #1E3A57;
+    --slate-soft: #5A6E85;
+    --slate-light: #8E9EAF;
+    --border-color: #E2E8F0;
+    --blue-primary: #0A84FF;
+    --blue-hover: #0066CC;
+    --blue-light: rgba(10, 132, 255, 0.08);
+    --blue-glow: rgba(10, 132, 255, 0.25);
+    --amber-primary: #F2A93B;
+    --amber-hover: #D99026;
+    /* Typography & Layout */
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+    --shadow-sm: 0 2px 8px rgba(11, 31, 51, 0.04);
+    --shadow-md: 0 8px 24px rgba(11, 31, 51, 0.08);
+    --shadow-lg: 0 16px 40px rgba(11, 31, 51, 0.12);
+    --shadow-glow: 0 0 20px var(--blue-glow);
+    --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-main);
+    color: var(--navy-dark);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* ==========================================================================
+   2. TYPOGRAPHY & BUTTONS
+   ========================================================================== */
+h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--navy-dark);
+}
+
+h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--navy-dark);
+}
+
+h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.accent {
+    color: var(--blue-primary);
+    position: relative;
+    display: inline-block;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--blue-primary);
+    margin-bottom: 12px;
+}
+
+/* Interactive Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition);
+    outline: none;
+    white-space: nowrap;
+}
+
+.btn-sm {
+    padding: 8px 18px;
+    font-size: 0.875rem;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.btn-primary {
+    background-color: var(--blue-primary);
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px var(--blue-glow);
+}
+
+    .btn-primary:hover {
+        background-color: var(--blue-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px var(--blue-glow);
+    }
+
+.btn-ghost {
+    background-color: transparent;
+    color: var(--navy-dark);
+}
+
+    .btn-ghost:hover {
+        background-color: var(--blue-light);
+        color: var(--blue-primary);
+    }
+
+.btn-amber {
+    background-color: var(--amber-primary);
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px rgba(242, 169, 59, 0.3);
+}
+
+    .btn-amber:hover {
+        background-color: var(--amber-hover);
+        transform: translateY(-2px);
+    }
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   3. HEADER & NAVIGATION
+   ========================================================================== */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250, 252, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba
+    /* ==========================================================================
+   GLOBAL HEADER & NAVIGATION STYLES
+   ========================================================================== */
+    .site-header
+
+{
+    background: #FFFFFF;
+    border-bottom: 1px solid var(--border-color, #E2E8F0);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Brand Link */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--navy-dark, #0B1F33);
+    text-decoration: none; /* Remove blue hyper-link underline */
+}
+
+    .brand .dot {
+        color: var(--blue-primary, #0A84FF);
+    }
+
+/* Navigation Menu */
+.main-nav ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Base Hyperlink Resets for Nav */
+.main-nav a,
+.main-nav a:visited {
+    color: var(--slate-soft, #5A6E85);
+    text-decoration: none; /* Strip standard blue underline */
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+    .main-nav a:hover {
+        color: var(--blue-primary, #0A84FF);
+    }
+
+    /* Active State for Current Page */
+    .main-nav a[data-active="true"] {
+        color: var(--blue-primary, #0A84FF);
+        font-weight: 700;
+    }
+
+/* Header Buttons */
+.nav-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border-radius: var(--radius-full, 9999px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    border: none;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--navy-mid, #1E3A57);
+}
+
+    .btn-ghost:hover {
+        background: var(--bg-tint, #F3F7FC);
+        color: var(--blue-primary, #0A84FF);
+    }
+
+.btn-primary {
+    background: var(--blue-primary, #0A84FF);
+    color: #FFFFFF !important;
+}
+
+    .btn-primary:hover {
+        background: var(--blue-hover, #0066CC);
+    }

@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Track Work — Soft Innovations</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        /* Header & Banner Styling Fixes */
+        .section-tint {
+            background-color: var(--bg-tint, #F3F7FC);
+            padding: 60px 0 80px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color, #E2E8F0);
+        }
+
+            .section-tint h1 {
+                font-size: clamp(2.2rem, 5vw, 3.4rem);
+                font-weight: 800;
+                line-height: 1.15;
+                letter-spacing: -0.02em;
+                color: var(--navy-dark, #0B1F33);
+                margin-top: 8px;
+            }
+
+            .section-tint p {
+                color: var(--slate-soft, #5A6E85);
+                font-size: 1.1rem;
+                margin-top: 8px;
+            }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--blue-primary, #0A84FF);
+        }
+
+        /* Tracker Component Styling */
+        .search-card {
+            background: var(--surface, #FFFFFF);
+            border: 1px solid var(--border-color, #E2E8F0);
+            border-radius: var(--radius-lg, 20px);
+            padding: 40px;
+            max-width: 680px;
+            margin: -40px auto 40px;
+            box-shadow: var(--shadow-md, 0 8px 24px rgba(11, 31, 51, 0.08));
+        }
+
+        .search-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--navy-dark, #0B1F33);
+        }
+
+        .field input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-color, #E2E8F0);
+            border-radius: var(--radius-sm, 8px);
+            background: var(--bg-main, #FAFCFF);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+            .field input:focus {
+                border-color: var(--blue-primary, #0A84FF);
+                background: #FFFFFF;
+                box-shadow: 0 0 0 3px var(--blue-light, rgba(10, 132, 255, 0.08));
+            }
+
+        .tracker-result {
+            display: none;
+            background: var(--surface, #FFFFFF);
+            border: 1px solid var(--border-color, #E2E8F0);
+            border-radius: var(--radius-lg, 20px);
+            padding: 36px;
+            max-width: 680px;
+            margin: 0 auto 60px;
+            box-shadow: var(--shadow-sm, 0 2px 8px rgba(11, 31, 51, 0.04));
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-tint, #F3F7FC);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--blue-primary, #0A84FF);
+            transition: width 0.8s ease-in-out;
+        }
+
+        .timeline {
+            list-style: none;
+            margin-top: 24px;
+            border-left: 2px solid var(--border-color, #E2E8F0);
+            padding-left: 20px;
+        }
+
+        .timeline-item {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+            .timeline-item::before {
+                content: '';
+                position: absolute;
+                left: -26px;
+                top: 4px;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: var(--slate-light, #8E9EAF);
+            }
+
+            .timeline-item.active::before {
+                background: var(--blue-primary, #0A84FF);
+                box-shadow: 0 0 0 4px var(--blue-light, rgba(10, 132, 255, 0.08));
+            }
+    </style>
+</head>
+<body data-page="track">
+
+    <header class="site-header">
+        <div class="nav-wrap">
+            <a href="index.html" class="brand">
+                <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="16" fill="#0A84FF" /><circle cx="10.5" cy="12" r="3.1" fill="#fff" /><circle cx="24" cy="11" r="2.3" fill="#fff" opacity="0.85" /><circle cx="23" cy="23.5" r="3.6" fill="#fff" /><path d="M10.5 12 L23 23.5 M10.5 12 L24 11" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity="0.9" /></svg>
+                Soft<span class="dot">Innovations</span>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="track.html" data-active="true">Track work</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="section-tint">
+        <div class="container">
+            <span class="eyebrow">Real-Time Tracker</span>
+            <h1>Check project progress</h1>
+            <p>Enter your unique Project Order ID to view current milestones.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="search-card">
+            <form id="tracker-form">
+                <div class="field">
+                    <label for="order-id">Project Order ID</label>
+                    <div class="search-group">
+                        <input type="text" id="order-id" placeholder="e.g. SI-101" required />
+                        <button type="submit" class="btn btn-primary">Track</button>
+                    </div>
+                </div>
+            </form>
+            <p style="font-size: 0.8rem; color: var(--slate-light, #8E9EAF); margin-top: 8px;">Demo IDs: Try <strong>SI-101</strong> or <strong>SI-202</strong></p>
+        </div>
+
+        <div id="tracker-result" class="tracker-result">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3 id="res-title" style="font-size: 1.25rem; font-weight: 700; color: var(--navy-dark, #0B1F33);">Project Name</h3>
+                <span id="res-status" class="pill" style="background: var(--bg-tint, #F3F7FC); padding: 4px 12px; border-radius: 99px; font-weight: 600; font-size: 0.8rem;">In Progress</span>
+            </div>
+
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+
+            <ul class="timeline" id="timeline-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('tracker-form');
+        const resultBox = document.getElementById('tracker-result');
+        const progressFill = document.getElementById('progress-fill');
+        const resTitle = document.getElementById('res-title');
+        const timelineList = document.getElementById('timeline-list');
+
+        const mockData = {
+        'SI-101': {
+        title: "E-Commerce Logistics Engine",
+        status: "Phase 3: Development",
+        progress: 65,
+        timeline: [
+        { step: "Project Scope & Architecture", completed: true },
+        { step: "Database Schema Design", completed: true },
+        { step: "API Integration & Express Setup", completed: true },
+        { step: "Frontend UI Component Development", completed: false },
+        { step: "User Acceptance Testing & Launch", completed: false }
+        ]
+        },
+        'SI-202': {
+        title: "Hospitality Management System",
+        status: "Phase 1: Discovery",
+        progress: 20,
+        timeline: [
+        { step: "Project Scope & Requirements", completed: true },
+        { step: "UX Wireframing", completed: false },
+        { step: "Database Implementation", completed: false }
+        ]
+        }
+        };
+
+        form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const inputVal = document.getElementById('order-id').value.trim().toUpperCase();
+        const data = mockData[inputVal];
+
+        if (data) {
+        resTitle.textContent = data.title;
+        resultBox.style.display = 'block';
+        progressFill.style.width = '0%';
+
+        setTimeout(() => {
+        progressFill.style.width = `${data.progress}%`;
+        }, 100);
+
+        timelineList.innerHTML = data.timeline.map(item => `
+        <li class="timeline-item ${item.completed ? 'active' : ''}">
+        <strong style="color:${item.completed ? 'var(--navy-dark, #0B1F33)' : 'var(--slate-soft, #5A6E85)'}">${item.step}</strong>
+        <p style="font-size:0.8rem; color:var(--slate-soft, #5A6E85);">${item.completed ? 'Completed' : 'Pending'}</p>
+        </li>
+        `).join('');
+        } else {
+        alert('Order ID not found. Try demo codes: SI-101 or SI-202');
+        }
+        });
+        });
+    </script>
+</body>
+</html>
