@@ -438,4 +438,3 @@ if ('serviceWorker' in navigator) {
 
   });
 }
-```
