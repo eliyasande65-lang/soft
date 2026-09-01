@@ -1,0 +1,29 @@
+SOFT INNOVATIONS FRONTEND ROUTE CHANGES
+
+1. public/js/main.js
+
+CHANGE:
+  api('/contact', ...)
+TO:
+  api('/soft/contact', ...)
+
+CHANGE:
+  api('/orders', ...)
+TO:
+  api('/soft/orders', ...)
+
+2. public/track.html
+
+CHANGE:
+  api('/orders/' + encodeURIComponent(id))
+TO:
+  api('/soft/orders/' + encodeURIComponent(id))
+
+3. public/plans/js/planform.js
+
+CHANGE:
+  https://qeja-backend-azkf.onrender.com/orders
+TO:
+  https://qeja-backend-azkf.onrender.com/soft/orders
+
+The frontend should then work with the routes supplied in this package.

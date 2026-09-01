@@ -1,0 +1,14 @@
+{
+  "name":"Soft Innovations",
+  "short_name":"Soft Innovations",
+  "description":"Professional website and software development services.",
+  "start_url":"public/index.html",
+  "scope":"./",
+  "display":"standalone",
+  "orientation":"portrait-primary",
+  "background_color":"#f7f9fc",
+  "theme_color":"#1769ff",
+  "icons":[],
+  "categories":["business","productivity"],
+  "lang":"en"
+}
