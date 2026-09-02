@@ -1,5 +1,7 @@
 # Soft Innovations — server.js corrections
 
+https://github.com/eliyasande65-lang/soft/soft/public/index.html
+https://eliyasande65-lang.github.io/soft/soft/public/index.html
 Your current QejaConnect server already has `express`, `mysql2`, `cors`, `zod`, `adminAuth`, `auth`, `generalLimiter`, `dbPromise`, and the router setup. The existing file also already mounts `router` with `app.use(router)`. The Soft Innovations routes therefore do not need another Express app or another MySQL connection.
 
 ## 1. Install requirements

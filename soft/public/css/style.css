@@ -1104,13 +1104,52 @@ h3 {
         border-radius: 20px;
     }
 
-    .mobile-drawer {
-        width: min(350px, 91vw);
-        padding: 20px;
+    .scrim {
+        position: fixed;
+        inset: 0;
+        z-index: 350;
+        background: rgba(6, 18, 31, 0.45);
     }
 
+        .scrim[data-open="true"] {
+            display: block;
+        }
+
+    .mobile-drawer {
+        position: fixed;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 400;
+        width: min(350px, 91vw);
+        padding: 20px;
+        background: #fff;
+        box-shadow: -20px 0 50px rgba(0, 0, 0, 0.12);
+        transform: translateX(100%);
+        transition: 0.3s;
+    }
+
+        .mobile-drawer[data-open="true"] {
+            display: block;
+            transform: translateX(0);
+        }
+
         .mobile-drawer nav {
+            display: grid;
+            gap: 5px;
             margin-top: 30px;
+        }
+
+        .mobile-drawer nav a {
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .mobile-drawer nav a:hover {
+            background: #f2f6fb;
         }
 
     .toast {
