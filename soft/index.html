@@ -1,1090 +1,378 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Soft Innovations — Web development, built to connect</title>
-    <meta name="description" content="Soft Innovations designs and builds web platforms, from marketplaces to custom business tools." />
-    <link rel="stylesheet" href="css/style.css" />
-    <style>
-        /* ==========================================================================
-   1. VARIABLES & SYSTEM SETUP
-   ========================================================================== */
-        :root {
-            /* Color Palette */
-            --bg-main: #FAFCFF;
-            --bg-tint: #F3F7FC;
-            --surface: #FFFFFF;
-            --navy-dark: #0B1F33;
-            --navy-mid: #1E3A57;
-            --slate-soft: #5A6E85;
-            --slate-light: #8E9EAF;
-            --border-color: #E2E8F0;
-            --blue-primary: #0A84FF;
-            --blue-hover: #0066CC;
-            --blue-light: rgba(10, 132, 255, 0.08);
-            --blue-glow: rgba(10, 132, 255, 0.25);
-            --amber-primary: #F2A93B;
-            --amber-hover: #D99026;
-            /* Typography & Layout */
-            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --radius-sm: 8px;
-            --radius-md: 14px;
-            --radius-lg: 20px;
-            --radius-full: 9999px;
-            --shadow-sm: 0 2px 8px rgba(11, 31, 51, 0.04);
-            --shadow-md: 0 8px 24px rgba(11, 31, 51, 0.08);
-            --shadow-lg: 0 16px 40px rgba(11, 31, 51, 0.12);
-            --shadow-glow: 0 0 20px var(--blue-glow);
-            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-family);
-            background-color: var(--bg-main);
-            color: var(--navy-dark);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        /* ==========================================================================
-   2. TYPOGRAPHY & BUTTONS
-   ========================================================================== */
-        h1 {
-            font-size: clamp(2.2rem, 5vw, 3.4rem);
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: -0.02em;
-            color: var(--navy-dark);
-        }
-
-        h2 {
-            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-            font-weight: 700;
-            line-height: 1.25;
-            letter-spacing: -0.01em;
-            color: var(--navy-dark);
-        }
-
-        h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .accent {
-            color: var(--blue-primary);
-            position: relative;
-            display: inline-block;
-        }
-
-        .eyebrow {
-            display: inline-block;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--blue-primary);
-            margin-bottom: 12px;
-        }
-
-        /* Interactive Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 14px 28px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            border-radius: var(--radius-full);
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            transition: var(--transition);
-            outline: none;
-            white-space: nowrap;
-        }
-
-        .btn-sm {
-            padding: 8px 18px;
-            font-size: 0.875rem;
-        }
-
-        .btn-block {
-            width: 100%;
-        }
-
-        .btn-primary {
-            background-color: var(--blue-primary);
-            color: #FFFFFF;
-            box-shadow: 0 4px 14px var(--blue-glow);
-        }
-
-            .btn-primary:hover {
-                background-color: var(--blue-hover);
-                transform: translateY(-2px);
-                box-shadow: 0 6px 20px var(--blue-glow);
-            }
-
-        .btn-ghost {
-            background-color: transparent;
-            color: var(--navy-dark);
-        }
-
-            .btn-ghost:hover {
-                background-color: var(--blue-light);
-                color: var(--blue-primary);
-            }
-
-        .btn-amber {
-            background-color: var(--amber-primary);
-            color: #FFFFFF;
-            box-shadow: 0 4px 14px rgba(242, 169, 59, 0.3);
-        }
-
-            .btn-amber:hover {
-                background-color: var(--amber-hover);
-                transform: translateY(-2px);
-            }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        /* ==========================================================================
-   3. HEADER & NAVIGATION
-   ========================================================================== */
-        .site-header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(250, 252, 255, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
-        }
-
-        .nav-wrap {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--navy-dark);
-            text-decoration: none;
-        }
-
-            .brand .dot {
-                color: var(--blue-primary);
-            }
-
-            .brand svg {
-                transition: var(--transition);
-            }
-
-            .brand:hover svg {
-                transform: rotate(15deg) scale(1.05);
-            }
-
-        .main-nav ul {
-            display: flex;
-            gap: 32px;
-            list-style: none;
-        }
-
-        .main-nav a {
-            text-decoration: none;
-            color: var(--slate-soft);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            position: relative;
-        }
-
-            .main-nav a:hover,
-            .main-nav a[data-active="true"] {
-                color: var(--blue-primary);
-            }
-
-            .main-nav a::after {
-                content: '';
-                position: absolute;
-                bottom: -4px;
-                left: 0;
-                width: 0%;
-                height: 2px;
-                background-color: var(--blue-primary);
-                transition: var(--transition);
-                border-radius: 2px;
-            }
-
-            .main-nav a:hover::after {
-                width: 100%;
-            }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px;
-        }
-
-        /* ==========================================================================
-   4. HERO SECTION & SVG ANIMATIONS
-   ========================================================================== */
-        .hero {
-            padding: 80px 0 100px;
-            overflow: hidden;
-        }
-
-            .hero .container {
-                display: grid;
-                grid-template-columns: 1.2fr 0.8fr;
-                gap: 40px;
-                align-items: center;
-            }
-
-        .hero-lead {
-            font-size: 1.15rem;
-            color: var(--slate-soft);
-            margin: 20px 0 32px;
-            max-width: 580px;
-        }
-
-        .hero-ctas {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 48px;
-        }
-
-        .hero-meta {
-            display: flex;
-            gap: 36px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 24px;
-        }
-
-        .m-item {
-            font-size: 0.85rem;
-            color: var(--slate-soft);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .m-num {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--navy-dark);
-        }
-
-        /* SVG Interactive Nodes */
-        .node-stage {
-            position: relative;
-            width: 100%;
-            filter: drop-shadow(0 10px 20px rgba(10, 132, 255, 0.15));
-        }
-
-            .node-stage svg {
-                width: 100%;
-                height: auto;
-            }
-
-        .n-line {
-            stroke-dasharray: 8;
-            animation: dash 30s linear infinite;
-        }
-
-        .n-node {
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-            .n-node:hover {
-                transform: scale(1.4);
-                transform-origin: center;
-                fill: var(--blue-primary) !important;
-            }
-
-        @keyframes dash {
-            to {
-                stroke-dashoffset: -1000;
-            }
-        }
-
-        .pulse {
-            animation: pulse-glow 2s infinite alternate;
-        }
-
-        @keyframes pulse-glow {
-            0% {
-                r: 10px;
-                opacity: 0.8;
-            }
-
-            100% {
-                r: 14px;
-                opacity: 1;
-                filter: drop-shadow(0 0 8px var(--blue-primary));
-            }
-        }
-
-        /* ==========================================================================
-   5. SECTIONS & CARDS
-   ========================================================================== */
-        section {
-            padding: 90px 0;
-        }
-
-        .section-tint {
-            background-color: var(--bg-tint);
-        }
-
-        .section-head {
-            margin-bottom: 48px;
-            max-width: 600px;
-        }
-
-            .section-head p {
-                color: var(--slate-soft);
-                margin-top: 12px;
-            }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
-        }
-
-        .card {
-            background: var(--surface);
-            padding: 36px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-        }
-
-            .card:hover {
-                transform: translateY(-6px);
-                box-shadow: var(--shadow-md);
-                border-color: rgba(10, 132, 255, 0.3);
-            }
-
-        .card-icon {
-            width: 44px;
-            height: 44px;
-            margin-bottom: 20px;
-            transition: var(--transition);
-        }
-
-        .card:hover .card-icon {
-            transform: scale(1.1);
-        }
-
-        .card h3 {
-            margin-bottom: 12px;
-        }
-
-        .card p {
-            color: var(--slate-soft);
-            font-size: 0.95rem;
-        }
-
-        /* Steps Layout */
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-            position: relative;
-        }
-
-        .step {
-            background: var(--surface);
-            padding: 28px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
-
-            .step:hover {
-                border-color: var(--blue-primary);
-                box-shadow: var(--shadow-sm);
-            }
-
-        .step-num {
-            font-size: 0.85rem;
-            font-weight: 800;
-            color: var(--blue-primary);
-            background: var(--blue-light);
-            padding: 4px 10px;
-            border-radius: var(--radius-full);
-            display: inline-block;
-            margin-bottom: 16px;
-        }
-
-        .step h4 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-        }
-
-        .step p {
-            font-size: 0.9rem;
-            color: var(--slate-soft);
-        }
-
-        /* ==========================================================================
-   6. FOOTER
-   ========================================================================== */
-        footer {
-            background: var(--navy-dark);
-            color: #FFFFFF;
-            padding: 80px 0 40px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1.5fr;
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        .footer-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: #FFFFFF;
-            text-decoration: none;
-            margin-bottom: 16px;
-        }
-
-        .footer-tag {
-            color: var(--slate-light);
-            font-size: 0.9rem;
-            max-width: 280px;
-        }
-
-        footer h5 {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 20px;
-            color: var(--slate-light);
-        }
-
-        footer ul {
-            list-style: none;
-        }
-
-            footer ul li {
-                margin-bottom: 12px;
-            }
-
-        footer a {
-            color: #E2E8F0;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-            footer a:hover {
-                color: var(--blue-primary);
-            }
-
-        .footer-contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 32px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            color: var(--slate-light);
-        }
-
-        /* ==========================================================================
-   7. INTERACTIVE MODALS & DRAWERS
-   ========================================================================== */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(11, 31, 51, 0.6);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition);
-        }
-
-            .modal-overlay[data-open="true"] {
-                opacity: 1;
-                pointer-events: auto;
-            }
-
-        .modal-box {
-            background: var(--surface);
-            width: 100%;
-            max-width: 480px;
-            padding: 36px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            transform: translateY(20px);
-            transition: var(--transition);
-        }
-
-        .modal-overlay[data-open="true"] .modal-box {
-            transform: translateY(0);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px;
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-
-            .modal-close:hover {
-                background: var(--bg-tint);
-            }
-
-        .modal-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--blue-light);
-            border-radius: var(--radius-full);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-        }
-
-        .modal-sub {
-            font-size: 0.9rem;
-            color: var(--slate-soft);
-            margin-bottom: 24px;
-        }
-
-        /* Form Styles */
-        .field {
-            margin-bottom: 18px;
-        }
-
-            .field label {
-                display: block;
-                font-size: 0.85rem;
-                font-weight: 600;
-                margin-bottom: 6px;
-                color: var(--navy-dark);
-            }
-
-            .field input,
-            .field select,
-            .field textarea {
-                width: 100%;
-                padding: 12px 16px;
-                font-family: inherit;
-                font-size: 0.95rem;
-                border: 1px solid var(--border-color);
-                border-radius: var(--radius-sm);
-                background: var(--bg-main);
-                outline: none;
-                transition: var(--transition);
-            }
-
-                .field input:focus,
-                .field select:focus,
-                .field textarea:focus {
-                    border-color: var(--blue-primary);
-                    background: var(--surface);
-                    box-shadow: 0 0 0 3px var(--blue-light);
-                }
-
-            .field textarea {
-                resize: vertical;
-                min-height: 90px;
-            }
-
-        .dev-note {
-            font-size: 0.75rem;
-            color: var(--slate-light);
-            margin-top: 12px;
-            text-align: center;
-        }
-
-        /* Mobile Drawer */
-        .mobile-drawer {
-            position: fixed;
-            inset: 0;
-            z-index: 999;
-            visibility: hidden;
-            transition: visibility 0s 0.3s;
-        }
-
-            .mobile-drawer[data-open="true"] {
-                visibility: visible;
-                transition: visibility 0s 0s;
-            }
-
-            .mobile-drawer .scrim {
-                position: absolute;
-                inset: 0;
-                background: rgba(11, 31, 51, 0.5);
-                opacity: 0;
-                transition: opacity 0.3s ease;
-            }
-
-            .mobile-drawer[data-open="true"] .scrim {
-                opacity: 1;
-            }
-
-            .mobile-drawer .panel {
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 300px;
-                height: 100%;
-                background: var(--surface);
-                padding: 24px;
-                display: flex;
-                flex-direction: column;
-                transform: translateX(100%);
-                transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            }
-
-            .mobile-drawer[data-open="true"] .panel {
-                transform: translateX(0);
-            }
-
-        .panel-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 32px;
-        }
-
-        .mobile-drawer ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .mobile-drawer a {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--navy-dark);
-            text-decoration: none;
-        }
-
-        .panel-actions {
-            margin-top: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        /* ==========================================================================
-   8. MEDIA QUERIES
-   ========================================================================== */
-        @media (max-width: 992px) {
-            .hero .container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-lead {
-                margin: 20px auto 32px;
-            }
-
-            .hero-ctas {
-                justify-content: center;
-            }
-
-            .hero-meta {
-                justify-content: center;
-            }
-
-            .grid-3 {
-                grid-template-columns: 1fr;
-            }
-
-            .steps {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .main-nav,
-            .nav-actions .btn {
-                display: none;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .steps {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: 12px;
-                text-align: center;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soft Innovation — Murumba Market</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16233b;
+    --ink-soft:#4a5a76;
+    --blue:#1957d6;
+    --blue-dark:#123f9e;
+    --blue-pale:#eaf1fd;
+    --line:#e2e8f2;
+    --white:#ffffff;
+    --footer:#0d1526;
+    --footer-text:#aab6cc;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--white);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3,.brand{
+    font-family:'Space Grotesk',sans-serif;
+    color:var(--ink);
+    margin:0;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+
+  /* ---------- top bar ---------- */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 6vw;
+    border-bottom:1px solid var(--line);
+    position:sticky;
+    top:0;
+    background:rgba(255,255,255,0.95);
+    backdrop-filter:blur(6px);
+    z-index:50;
+  }
+  .brand{font-size:1.25rem;font-weight:700;}
+  .brand span{color:var(--blue);}
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:28px;
+    margin:0;
+    padding:0;
+    font-size:0.95rem;
+    font-weight:500;
+  }
+  nav a:hover{color:var(--blue);}
+  .nav-toggle{display:none;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:48px;
+    align-items:center;
+    padding:64px 6vw 56px;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem,3.6vw,3rem);
+    line-height:1.12;
+    letter-spacing:-0.01em;
+  }
+  .hero p{
+    color:var(--ink-soft);
+    font-size:1.08rem;
+    max-width:46ch;
+    margin:18px 0 30px;
+  }
+  .hero-loc{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:0.85rem;
+    font-weight:600;
+    color:var(--blue-dark);
+    background:var(--blue-pale);
+    padding:6px 14px;
+    border-radius:100px;
+    margin-bottom:20px;
+  }
+  .hero-loc::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--blue);}
+  .btn-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;
+    padding:13px 24px;
+    border-radius:8px;
+    font-weight:600;
+    font-size:0.95rem;
+    border:1.5px solid transparent;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{background:var(--blue);color:#fff;}
+  .btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px);}
+  .btn-outline{border-color:var(--blue);color:var(--blue-dark);background:#fff;}
+  .btn-outline:hover{background:var(--blue-pale);}
+
+  /* ---------- image carousel ---------- */
+  .carousel{
+    position:relative;
+    width:100%;
+    aspect-ratio:4/3;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 20px 40px -18px rgba(19,45,99,0.35);
+    border:1px solid var(--line);
+  }
+  .carousel img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    animation:slide 16s infinite;
+  }
+  .carousel img:nth-child(1){animation-delay:0s;}
+  .carousel img:nth-child(2){animation-delay:4s;}
+  .carousel img:nth-child(3){animation-delay:8s;}
+  .carousel img:nth-child(4){animation-delay:12s;}
+  @keyframes slide{
+    0%{opacity:0;transform:scale(1.04);}
+    4%{opacity:1;transform:scale(1);}
+    22%{opacity:1;transform:scale(1);}
+    27%{opacity:0;transform:scale(1);}
+    100%{opacity:0;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .carousel img{animation:none;opacity:0;}
+    .carousel img:first-child{opacity:1;}
+  }
+  .carousel-dots{
+    position:absolute;
+    bottom:14px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:7px;
+  }
+  .carousel-dots span{
+    width:6px;height:6px;border-radius:50%;
+    background:rgba(255,255,255,0.55);
+  }
+
+  /* ---------- services ---------- */
+  .services{padding:70px 6vw 20px;background:var(--blue-pale);}
+  .section-head{max-width:60ch;margin-bottom:40px;}
+  .section-head p.eyebrow{
+    color:var(--blue-dark);font-weight:600;font-size:0.9rem;margin:0 0 8px;
+  }
+  .section-head h2{font-size:clamp(1.6rem,2.6vw,2.1rem);}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px;
+    padding-bottom:70px;
+  }
+  .card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px 24px;
+  }
+  .card h3{font-size:1.08rem;margin-bottom:8px;}
+  .card p{color:var(--ink-soft);font-size:0.93rem;margin:0;}
+  .card .tag{
+    display:inline-block;
+    font-size:0.72rem;
+    font-weight:600;
+    color:var(--blue-dark);
+    background:var(--blue-pale);
+    border:1px solid #cfe0fb;
+    padding:3px 10px;
+    border-radius:100px;
+    margin-bottom:12px;
+  }
+  .card.feature{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .card.feature h3,.card.feature p{color:#fff;}
+  .card.feature p{color:#c3ccdc;}
+  .card.feature .tag{background:rgba(255,255,255,0.12);color:#dbe6ff;border-color:rgba(255,255,255,0.2);}
+  .card.feature a.btn{margin-top:16px;align-self:flex-start;}
+
+  /* ---------- contact strip ---------- */
+  .contact-strip{
+    padding:64px 6vw;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:32px;
+    align-items:center;
+  }
+  .contact-strip h2{font-size:clamp(1.5rem,2.4vw,2rem);margin-bottom:10px;}
+  .contact-strip p{color:var(--ink-soft);max-width:50ch;margin:0;}
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--footer);
+    color:var(--footer-text);
+    padding:52px 6vw 28px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr;
+    gap:40px;
+    padding-bottom:36px;
+    border-bottom:1px solid rgba(255,255,255,0.09);
+  }
+  .footer-grid h4{
+    color:#fff;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:0.95rem;
+    margin:0 0 14px;
+  }
+  .footer-grid p, .footer-grid a{
+    display:block;
+    font-size:0.9rem;
+    color:var(--footer-text);
+    margin-bottom:9px;
+  }
+  .footer-grid a:hover{color:#fff;}
+  .footer-brand p{max-width:32ch;color:var(--footer-text);}
+  .bottom-bar{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    padding-top:22px;
+    font-size:0.82rem;
+    color:#7c88a3;
+  }
+
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr;padding-top:36px;}
+    .hero-image{order:-1;}
+    .contact-strip{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    nav ul{display:none;}
+  }
+</style>
 </head>
-<body data-page="home">
+<body>
 
-    <!-- ============ HEADER ============ -->
-    <header class="site-header">
-        <div class="nav-wrap">
-            <a href="index.html" class="brand">
-                <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <circle cx="17" cy="17" r="16" fill="#0A84FF" />
-                    <circle cx="10.5" cy="12" r="3.1" fill="#fff" />
-                    <circle cx="24" cy="11" r="2.3" fill="#fff" opacity="0.85" />
-                    <circle cx="23" cy="23.5" r="3.6" fill="#fff" />
-                    <path d="M10.5 12 L23 23.5 M10.5 12 L24 11" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity="0.9" />
-                </svg>
-                Soft<span class="dot">Innovations</span>
-            </a>
+<header>
+  <div class="brand">Soft <span>Innovation</span></div>
+  <nav>
+    <ul>
+      <li><a href="#software">Software</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <a href="#contact" class="btn btn-primary" style="padding:10px 18px;font-size:0.88rem;">Visit us</a>
+</header>
 
-            <nav class="main-nav" aria-label="Primary">
-                <ul>
-                    <li><a href="index.html" data-page="home">Home</a></li>
-                    <li><a href="services.html" data-page="services">Services</a></li>
-                    <li><a href="track.html" data-page="track">Track work</a></li>
-                    <li><a href="contact.html" data-page="contact">Contact</a></li>
-                </ul>
-            </nav>
-
-            <div class="nav-actions">
-                <button class="btn btn-ghost btn-sm" data-modal-target="modal-login">Log in</button>
-                <button class="btn btn-primary btn-sm" data-modal-target="modal-order">Request order</button>
-                <button class="menu-toggle" aria-label="Open menu" aria-controls="mobile-drawer">
-                    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="4" y="7" width="18" height="2.2" rx="1.1" fill="#0B1F33" />
-                        <rect x="4" y="12.4" width="18" height="2.2" rx="1.1" fill="#0B1F33" />
-                        <rect x="4" y="17.8" width="12" height="2.2" rx="1.1" fill="#0A84FF" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- ============ MOBILE DRAWER ============ -->
-    <div class="mobile-drawer" id="mobile-drawer" data-open="false">
-        <div class="scrim"></div>
-        <div class="panel">
-            <div class="panel-top">
-                <span class="brand">Soft<span class="dot">Innovations</span></span>
-                <button class="drawer-close" aria-label="Close menu" style="background:none;border:none;cursor:pointer;">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                        <line x1="4" y1="4" x2="18" y2="18" stroke="#0B1F33" stroke-width="2.2" stroke-linecap="round" />
-                        <line x1="18" y1="4" x2="4" y2="18" stroke="#0B1F33" stroke-width="2.2" stroke-linecap="round" />
-                    </svg>
-                </button>
-            </div>
-            <ul>
-                <li><a href="index.html" data-page="home">Home</a></li>
-                <li><a href="services.html" data-page="services">Services</a></li>
-                <li><a href="track.html" data-page="track">Track work</a></li>
-                <li><a href="contact.html" data-page="contact">Contact</a></li>
-            </ul>
-            <div class="panel-actions">
-                <button class="btn btn-ghost btn-block" data-modal-target="modal-login">Log in</button>
-                <button class="btn btn-primary btn-block" data-modal-target="modal-order">Request order</button>
-            </div>
-        </div>
+<section class="hero">
+  <div class="hero-copy">
+    <div class="hero-loc">Murumba Market, Kenya</div>
+    <h1>Websites and web apps, plus every cyber errand in between.</h1>
+    <p>Soft Innovation builds websites and web apps for businesses, and also handles the everyday cyber café work — printing, T-shirt branding, KRA returns, HELB and KUCCPS applications, and more.</p>
+    <div class="btn-row">
+      <a href="public/index.html" class="btn btn-primary">View our web work</a>
+      <a href="#services" class="btn btn-outline">See all services</a>
     </div>
-
-    <!-- ============ HERO ============ -->
-    <section class="hero">
-        <div class="container">
-            <div>
-                <span class="eyebrow">Nairobi · Web development studio</span>
-                <h1>We build the software that <span class="accent">connects</span> your business to its people.</h1>
-                <p class="hero-lead">Soft Innovations designs and ships web platforms — from customer-facing marketplaces to the internal tools that keep a growing business organised. Small studio, direct communication, work you can track from day one.</p>
-                <div class="hero-ctas">
-                    <button class="btn btn-primary" data-modal-target="modal-order">Request an order</button>
-                    <a href="services.html" class="btn btn-ghost">See what we do</a>
-                </div>
-                <div class="hero-meta">
-                    <div class="m-item"><span class="m-num">40+</span>projects shipped</div>
-                    <div class="m-item"><span class="m-num">3</span>core service lines</div>
-                    <div class="m-item"><span class="m-num">24hrs</span>typical first reply</div>
-                </div>
-            </div>
-
-            <div class="node-stage" aria-hidden="true">
-                <svg viewBox="0 0 420 360" xmlns="http://www.w3.org/2000/svg">
-                    <line class="n-line" x1="90" y1="80" x2="230" y2="150" stroke="#0A84FF" stroke-width="2" opacity="0.55" />
-                    <line class="n-line" x1="230" y1="150" x2="340" y2="90" stroke="#0A84FF" stroke-width="2" opacity="0.4" />
-                    <line class="n-line" x1="230" y1="150" x2="310" y2="250" stroke="#0A84FF" stroke-width="2" opacity="0.55" />
-                    <line class="n-line" x1="230" y1="150" x2="120" y2="260" stroke="#0A84FF" stroke-width="2" opacity="0.4" />
-                    <line class="n-line" x1="120" y1="260" x2="200" y2="320" stroke="#0A84FF" stroke-width="2" opacity="0.4" />
-                    <line class="n-line" x1="310" y1="250" x2="230" y2="150" stroke="#0A84FF" stroke-width="1.4" opacity="0.3" />
-
-                    <circle class="n-node pulse" cx="230" cy="150" r="12" fill="#0B1F33" />
-                    <circle class="n-node" cx="90" cy="80" r="8" fill="#0A84FF" />
-                    <circle class="n-node" cx="340" cy="90" r="7" fill="#0A84FF" opacity="0.85" />
-                    <circle class="n-node" cx="310" cy="250" r="9" fill="#0B1F33" />
-                    <circle class="n-node" cx="120" cy="260" r="7" fill="#0A84FF" />
-                    <circle class="n-node" cx="200" cy="320" r="6" fill="#F2A93B" />
-                </svg>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ WHAT WE DO ============ -->
-    <section class="section-tint">
-        <div class="container">
-            <div class="section-head">
-                <span class="eyebrow">What we do</span>
-                <h2>Three ways we usually get involved</h2>
-                <p>Every project starts as a conversation about the problem, not the tech stack. Here's where we're strongest.</p>
-            </div>
-
-            <div class="grid-3">
-                <div class="card">
-                    <svg class="card-icon" viewBox="0 0 44 44" fill="none"><rect width="44" height="44" rx="12" fill="#0A84FF1a" /><path d="M13 22h18M22 13v18" stroke="#0A84FF" stroke-width="2.4" stroke-linecap="round" /></svg>
-                    <h3>Custom web platforms</h3>
-                    <p>Marketplaces, booking systems, and multi-sided platforms built around how your users actually work.</p>
-                </div>
-                <div class="card">
-                    <svg class="card-icon" viewBox="0 0 44 44" fill="none"><rect width="44" height="44" rx="12" fill="#0A84FF1a" /><rect x="12" y="12" width="20" height="20" rx="4" stroke="#0A84FF" stroke-width="2.2" /><path d="M12 20h20" stroke="#0A84FF" stroke-width="2.2" /></svg>
-                    <h3>Business tools & dashboards</h3>
-                    <p>Internal systems for tracking orders, inventory, and clients — so your team stops living in spreadsheets.</p>
-                </div>
-                <div class="card">
-                    <svg class="card-icon" viewBox="0 0 44 44" fill="none"><rect width="44" height="44" rx="12" fill="#0A84FF1a" /><path d="M14 30V18l8-6 8 6v12" stroke="#0A84FF" stroke-width="2.2" stroke-linejoin="round" /></svg>
-                    <h3>Ongoing support & maintenance</h3>
-                    <p>Bug fixes, new features, and hosting guidance after launch — we stay reachable, not just for the handover.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ PROCESS ============ -->
-    <section>
-        <div class="container">
-            <div class="section-head">
-                <span class="eyebrow">How a project runs</span>
-                <h2>From first message to live site</h2>
-            </div>
-            <div class="steps">
-                <div class="step">
-                    <span class="step-num">01</span>
-                    <h4>Request</h4>
-                    <p>You tell us the problem via the order form — no jargon required.</p>
-                </div>
-                <div class="step">
-                    <span class="step-num">02</span>
-                    <h4>Scope</h4>
-                    <p>We reply with a plan, rough timeline, and cost within a day.</p>
-                </div>
-                <div class="step">
-                    <span class="step-num">03</span>
-                    <h4>Build</h4>
-                    <p>You can track progress live on the "Track my work" page.</p>
-                </div>
-                <div class="step">
-                    <span class="step-num">04</span>
-                    <h4>Launch & support</h4>
-                    <p>We ship it, then stay on for fixes and the next feature.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============ CTA BAND ============ -->
-    <section class="section-tint">
-        <div class="container text-center" style="max-width:640px;">
-            <h2>Have a project in mind?</h2>
-            <p style="color:var(--slate-soft);margin-bottom:26px;">Tell us what you're building and we'll come back with a plan, not a sales pitch.</p>
-            <button class="btn btn-amber" data-modal-target="modal-order">Request an order</button>
-        </div>
-    </section>
-
-    <!-- ============ FOOTER ============ -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <a href="index.html" class="footer-brand">
-                        <svg width="30" height="30" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <circle cx="17" cy="17" r="16" fill="#0A84FF" />
-                            <circle cx="10.5" cy="12" r="3.1" fill="#fff" />
-                            <circle cx="24" cy="11" r="2.3" fill="#fff" opacity="0.85" />
-                            <circle cx="23" cy="23.5" r="3.6" fill="#fff" />
-                            <path d="M10.5 12 L23 23.5 M10.5 12 L24 11" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity="0.9" />
-                        </svg>
-                        Soft Innovations
-                    </a>
-                    <p class="footer-tag">A small web development studio building platforms and tools for growing businesses.</p>
-                </div>
-                <div>
-                    <h5>Navigate</h5>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="track.html">Track my work</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5>Company</h5>
-                    <ul>
-                        <li><a href="services.html#process">Our process</a></li>
-                        <li><a href="contact.html#help">Help &amp; FAQ</a></li>
-                        <li><a href="#" data-modal-target="modal-login">Client login</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5>Contact</h5>
-                    <ul>
-                        <li class="footer-contact-item">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2z" stroke="#0A84FF" stroke-width="1.3" /><path d="M2 4l6 5 6-5" stroke="#0A84FF" stroke-width="1.3" /></svg>
-                            <a href="mailto:eliyasande65@gmail.com">eliyasande65@gmail.com</a>
-                        </li>
-                        <li class="footer-contact-item">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 2c1 0 2 .3 2 1.2 0 .8-1 1-1 1.8 0 1.8 3.2 5 5 5 .8 0 1-1 1.8-1 .9 0 1.2 1 1.2 2 0 1.2-1 2-2 2-3.5 0-8-4.5-8-8 0-1 .8-2 2-2z" stroke="#0A84FF" stroke-width="1.2" /></svg>
-                            <a href="tel:+254714104737">0714 104 737</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <span>&copy; 2026 Soft Innovations. All rights reserved.</span>
-                <span>Built with Node.js &amp; MySQL — backend in progress.</span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ============ MODALS ============ -->
-    <div id="modal-order" class="modal-overlay" data-open="false" role="dialog" aria-modal="true" aria-labelledby="order-title">
-        <div class="modal-box">
-            <button class="modal-close" aria-label="Close">
-                <svg width="18" height="18" viewBox="0 0 18 18"><line x1="2" y1="2" x2="16" y2="16" stroke="#3D4B5C" stroke-width="2" /><line x1="16" y1="2" x2="2" y2="16" stroke="#3D4B5C" stroke-width="2" /></svg>
-            </button>
-            <div class="modal-icon">
-                <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M6 13h14M13 6v14" stroke="#0A84FF" stroke-width="2.4" stroke-linecap="round" /></svg>
-            </div>
-            <h3 id="order-title">Request an order</h3>
-            <p class="modal-sub">Give us the basics — we'll reply with a scope and estimate.</p>
-            <form data-demo-form data-success-message="Order request received — we'll email you within 24 hours.">
-                <div class="field">
-                    <label for="o-name">Full name</label>
-                    <input id="o-name" type="text" required placeholder="Jane Wanjiru" />
-                </div>
-                <div class="field">
-                    <label for="o-email">Email</label>
-                    <input id="o-email" type="email" required placeholder="you@business.com" />
-                </div>
-                <div class="field">
-                    <label for="o-service">What do you need built?</label>
-                    <select id="o-service">
-                        <option>Custom web platform</option>
-                        <option>Business dashboard / internal tool</option>
-                        <option>Website redesign</option>
-                        <option>Ongoing support</option>
-                        <option>Not sure yet</option>
-                    </select>
-                </div>
-                <div class="field">
-                    <label for="o-message">Brief description</label>
-                    <textarea id="o-message" placeholder="Tell us about the problem you're solving..."></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Send request</button>
-                <p class="dev-note"><!-- POST /api/orders — Express route + MySQL `orders` table pending. See js/api.js --> Backend submission wiring in progress.</p>
-            </form>
-        </div>
+  </div>
+  <div class="hero-image">
+    <div class="carousel">
+      <img src="img1.jpg" alt="Customers being served at Murumba CyberPoint">
+      <img src="img2.jpg" alt="Printing and document services in progress">
+      <img src="img3.jpg" alt="T-shirt printing setup at the shop">
+      <img src="img4.jpg" alt="Computer workstation for online applications">
+      <div class="carousel-dots"><span></span><span></span><span></span><span></span></div>
     </div>
+  </div>
+</section>
 
-    <div id="modal-login" class="modal-overlay" data-open="false" role="dialog" aria-modal="true" aria-labelledby="login-title">
-        <div class="modal-box">
-            <button class="modal-close" aria-label="Close">
-                <svg width="18" height="18" viewBox="0 0 18 18"><line x1="2" y1="2" x2="16" y2="16" stroke="#3D4B5C" stroke-width="2" /><line x1="16" y1="2" x2="2" y2="16" stroke="#3D4B5C" stroke-width="2" /></svg>
-            </button>
-            <div class="modal-icon">
-                <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="9" r="4" stroke="#0A84FF" stroke-width="2.2" /><path d="M5 22c1.5-5 5-7 8-7s6.5 2 8 7" stroke="#0A84FF" stroke-width="2.2" stroke-linecap="round" /></svg>
-            </div>
-            <h3 id="login-title">Log in to your account</h3>
-            <p class="modal-sub">Client accounts are launching soon — this form is a preview.</p>
-            <form data-demo-form data-success-message="Accounts aren't live yet — we'll email you the moment they open.">
-                <div class="field">
-                    <label for="l-email">Email</label>
-                    <input id="l-email" type="email" required placeholder="you@business.com" />
-                </div>
-                <div class="field">
-                    <label for="l-pass">Password</label>
-                    <input id="l-pass" type="password" required placeholder="••••••••" />
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Log in</button>
-                <p class="dev-note"><!-- POST /api/auth/login — Express + MySQL `users` table pending. See js/api.js --> Accounts land with the backend release.</p>
-            </form>
-        </div>
+<section class="services" id="services">
+  <div class="section-head">
+    <p class="eyebrow">What we do</p>
+    <h2>One counter, every application</h2>
+  </div>
+  <div class="grid">
+    <div class="card feature" id="software">
+      <div>
+        <span class="tag">Development</span>
+        <h3>Software development</h3>
+        <p>Websites and web apps built to order — from a small business site to a full booking or ordering system.</p>
+      </div>
+      <a href="public/index.html" class="btn btn-primary">View our web work</a>
     </div>
+    <div class="card">
+      <span class="tag">Cyber</span>
+      <h3>General cyber services</h3>
+      <p>Printing, scanning, photocopying, lamination, typesetting, CVs and browsing — the everyday cyber café work, done fast.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Print</span>
+      <h3>T-shirt printing</h3>
+      <p>Custom T-shirts for events, harambees, teams and businesses. Bring your design or let us help you create one.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Government</span>
+      <h3>HELB applications</h3>
+      <p>First-time applications, loan top-ups and status checks — guided from start to submission.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Government</span>
+      <h3>KRA returns filing</h3>
+      <p>Annual returns (nil and income), PIN registration and PIN retrieval, handled correctly and on time.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Admissions</span>
+      <h3>KUCCPS applications</h3>
+      <p>Course placement, revision of choices and status tracking for university and college applicants.</p>
+    </div>
+    <div class="card">
+      <span class="tag">More</span>
+      <h3>Other applications</h3>
+      <p>NHIF/SHA, NSSF, e-Citizen services, passport and ID appointments, and other online forms.</p>
+    </div>
+  </div>
+</section>
 
-    <script src="js/api.js"></script>
-    <script src="js/main.js"></script>
+<section class="contact-strip" id="contact">
+  <div>
+    <h2>Come see us, or reach out first</h2>
+    <p>Drop by our shop at Murumba Market, or send us your requirements by email and we'll get back to you with a quote.</p>
+  </div>
+  <a href="mailto:eliyasande65@gmail.com?subject=Enquiry%20from%20Soft%20Innovation%20website" class="btn btn-primary">Email us</a>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h4>Soft Innovation</h4>
+      <p>Software development for websites and web apps, plus cyber services and government applications, all under one roof at Murumba Market.</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="mailto:eliyasande65@gmail.com">eliyasande65@gmail.com</a>
+      <a href="#contact">Murumba Market, Kenya</a>
+      <a href="#contact">Mon – Sat, 8:00 AM – 7:00 PM</a>
+    </div>
+    <div>
+      <h4>Quick links</h4>
+      <a href="#software">Software development</a>
+      <a href="#services">All services</a>
+      <a href="public/index.html">Our web projects</a>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <span>&copy; 2026 Soft Innovation. All rights reserved.</span>
+    <span>Murumba Market, Kenya</span>
+  </div>
+</footer>
+
 </body>
 </html>
