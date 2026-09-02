@@ -81,9 +81,41 @@ tr:last-child td{border-bottom:0}tr:hover td{background:#fcfcff}
  .topbar{align-items:flex-start}.topbar h1{font-size:22px}.admin{display:none}.cards{grid-template-columns:1fr 1fr}.details{grid-template-columns:1fr}.full{grid-column:auto}.search{min-width:100%}.section-head{align-items:flex-start;gap:12px;flex-direction:column}
 }
 @media(max-width:430px){.cards{grid-template-columns:1fr}.cards .card{padding:16px}}
+
+.login-screen{position:fixed;inset:0;background:linear-gradient(135deg,#17142d,#29204e);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100}
+.login-screen.hidden{display:none}
+.login-box{width:min(430px,100%);background:#fff;border-radius:24px;padding:32px;box-shadow:0 30px 90px rgba(0,0,0,.3)}
+.login-brand{text-align:center;margin-bottom:25px}.login-logo{width:58px;height:58px;border-radius:17px;background:linear-gradient(135deg,#7b65ff,#4935ca);color:#fff;display:grid;place-items:center;font-weight:900;font-size:26px;margin:0 auto 12px}
+.login-box h1{margin:0;font-size:23px}.login-box p{color:#71788c;font-size:13px}.login-field{margin:17px 0}.login-field label{display:block;font-size:12px;font-weight:700;margin-bottom:7px}.login-field input{width:100%}
+.login-submit{width:100%;padding:13px;border-radius:11px;background:#5b45e8;color:#fff;font-weight:800}.login-submit:disabled{opacity:.6;cursor:wait}
+.login-error{display:none;background:#fff0f2;color:#c2384b;border-radius:10px;padding:10px;margin:12px 0;font-size:12px}
+.login-error.show{display:block}.login-note{text-align:center;color:#8a8fa0;font-size:11px;margin-top:18px}
+.logout{margin-top:25px!important;color:#ffadb7!important}
+
 </style>
 </head>
 <body>
+
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-brand">
+      <div class="login-logo">S</div>
+      <h1>Soft Innovations</h1>
+      <p>Administrator Access</p>
+    </div>
+    <form id="loginForm">
+      <div class="login-field">
+        <label>Admin Secret</label>
+        <input id="adminSecret" type="password" autocomplete="current-password"
+               placeholder="Enter your admin secret" required>
+      </div>
+      <div class="login-error" id="loginError"></div>
+      <button class="login-submit" id="loginSubmit" type="submit">Sign in</button>
+    </form>
+    <div class="login-note">Enter the administrator secret configured on the server.</div>
+  </div>
+</div>
+
 <div class="app">
 <aside class="sidebar" id="sidebar">
   <div class="brand"><div class="logo">S</div><div><strong>Soft Innovations</strong><small>Admin Panel</small></div></div>
@@ -91,6 +123,7 @@ tr:last-child td{border-bottom:0}tr:hover td{background:#fcfcff}
     <button class="active" data-page="dashboard"><span class="icon">⌂</span>Dashboard</button>
     <button data-page="orders"><span class="icon">▣</span>Projects</button>
     <button data-page="messages"><span class="icon">✉</span>Contact Messages</button>
+    <button class="logout" id="logoutBtn"><span class="icon">↪</span>Sign out</button>
   </nav>
   <div class="sidebar-footer">Soft Innovations<br>Administration</div>
 </aside>
@@ -162,7 +195,51 @@ tr:last-child td{border-bottom:0}tr:hover td{background:#fcfcff}
 
 <script>
 const API = "https://qeja-backend-azkf.onrender.com";
-let token = localStorage.getItem("adminToken") || "";
+let adminSecret = sessionStorage.getItem("softAdminSecret") || "";
+let isLoggedIn = !!adminSecret;
+
+function setLoggedIn(value){
+  isLoggedIn=value;
+  document.getElementById("loginScreen").classList.toggle("hidden",value);
+  document.querySelector(".app").style.display=value?"flex":"none";
+}
+function saveSecret(secret){
+  adminSecret=secret;
+  sessionStorage.setItem("softAdminSecret",secret);
+  setLoggedIn(true);
+}
+function clearSecret(){
+  adminSecret="";
+  sessionStorage.removeItem("softAdminSecret");
+  setLoggedIn(false);
+}
+function showLoginError(msg){
+  const e=document.getElementById("loginError");
+  e.textContent=msg;e.classList.add("show");
+}
+function showLoginError(msg){
+  const e=document.getElementById("loginError");
+  e.textContent=msg;e.classList.add("show");
+}
+async function adminLogin(secret){
+  /*
+   * adminAuth expects the secret in the x-admin-secret header and compares
+   * it directly with process.env.ADMIN_SECRET on the backend.
+   *
+   * There is no separate admin-login route in the supplied server code.
+   * We therefore verify the secret by calling an admin-protected endpoint.
+   */
+  const previous=adminSecret;
+  adminSecret=secret;
+  try{
+    await api("/admin/soft/orders?page=1&limit=1");
+    saveSecret(secret);
+    return true;
+  }catch(err){
+    adminSecret=previous;
+    throw new Error(err.message==="Forbidden" ? "Invalid admin secret." : err.message);
+  }
+}
 let page = 1, currentOrder = null, total = 0, limit = 20;
 
 const statuses = ["received","reviewing","quoted","approved","development","testing","ready","completed","cancelled"];
@@ -171,7 +248,7 @@ const activeStatuses = ["reviewing","quoted","approved","development","testing",
 function headers(json=true){
   const h={};
   if(json) h["Content-Type"]="application/json";
-  if(token) h["Authorization"]="Bearer "+token;
+  if(adminSecret) h["x-admin-secret"]=adminSecret;
   return h;
 }
 async function api(path, options={}){
@@ -213,7 +290,7 @@ async function loadOrders(){
     renderOrders(data.orders||[]);
     document.getElementById("pageInfo").textContent=total?`Page ${page} · ${Math.min((page-1)*limit+1,total)}–${Math.min(page*limit,total)} of ${total}`:"No projects";
     updateStats(data.orders||[],total);
-  }catch(e){body.innerHTML=`<tr><td colspan="8" class="empty">${esc(e.message)}<br><small>Make sure you are logged in as an admin and your admin token is stored as <b>adminToken</b>.</small></td></tr>`}
+  }catch(e){body.innerHTML=`<tr><td colspan="8" class="empty">${esc(e.message)}<br><small>Make sure you are logged in as an admin and your admin token is stored as <b>softAdminSecret</b>.</small></td></tr>`}
 }
 function renderOrders(orders){
  const body=document.getElementById("ordersBody");
@@ -292,7 +369,31 @@ async function replyMessage(id){
 }
 document.getElementById("modalOverlay").addEventListener("click",e=>{if(e.target.id==="modalOverlay")closeModal()});
 
-loadDashboard();loadMessages();
+document.getElementById("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const btn=document.getElementById("loginSubmit");
+  const error=document.getElementById("loginError");
+  error.classList.remove("show");
+  btn.disabled=true;btn.textContent="Verifying…";
+  try{
+    await adminLogin(document.getElementById("adminSecret").value);
+    document.getElementById("adminSecret").value="";
+    showToast("Administrator access granted.");
+    loadDashboard();loadMessages();
+  }catch(err){
+    clearSecret();
+    showLoginError(err.message||"Unable to verify administrator secret.");
+  }finally{
+    btn.disabled=false;btn.textContent="Sign in";
+  }
+});
+document.getElementById("logoutBtn").addEventListener("click",()=>{
+  clearSecret();
+  document.getElementById("adminSecret").value="";
+  showToast("Signed out.");
+});
+setLoggedIn(isLoggedIn);
+if(isLoggedIn){loadDashboard();loadMessages();}
 </script>
 </body>
 </html>
