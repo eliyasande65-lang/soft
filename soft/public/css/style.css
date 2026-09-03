@@ -850,6 +850,21 @@ h3 {
     display: none;
 }
 
+.scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 350;
+    background: rgba(6, 18, 31, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.scrim[data-open="true"] {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .toast {
     position: fixed;
     right: 20px;
@@ -1109,10 +1124,15 @@ h3 {
         inset: 0;
         z-index: 350;
         background: rgba(6, 18, 31, 0.45);
+        display: block;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
     }
 
         .scrim[data-open="true"] {
-            display: block;
+            opacity: 1;
+            pointer-events: auto;
         }
 
     .mobile-drawer {
@@ -1125,12 +1145,16 @@ h3 {
         padding: 20px;
         background: #fff;
         box-shadow: -20px 0 50px rgba(0, 0, 0, 0.12);
+        display: block;
+        visibility: hidden;
+        opacity: 0;
         transform: translateX(100%);
-        transition: 0.3s;
+        transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
     }
 
         .mobile-drawer[data-open="true"] {
-            display: block;
+            visibility: visible;
+            opacity: 1;
             transform: translateX(0);
         }
 
