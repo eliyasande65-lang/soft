@@ -184,14 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* =======================================================
-     SOFT INNOVATIONS — CONTACT FORM
-     
-     IMPORTANT:
-     This intentionally uses /soft/contact.
-     Do NOT change this to /contact because /contact
-     belongs to the existing QejaConnect authenticated
-     endpoint.
-  ======================================================= */
+     SOFT INNOVATIONS — CONTACT FORM ======================================================= */
 
   const contactForm = $('#contact-form');
 
@@ -341,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData =
           Object.fromEntries(new FormData(loginForm));
 
-        const data = await api('/login', {
+        const data = await api('soft/login', {
           method: 'POST',
           body: JSON.stringify(formData)
         });
